@@ -1,0 +1,46 @@
+{% load static %}
+{% load i18n %}
+
+<style>
+    .footer__body {
+        margin-top: 30px !important;
+    }
+</style>
+<footer class="footer">
+    <div class="footer__body">
+        <div class="footer__info footer__info--end">
+            <div class="footer__info--title footer__about--the">{% trans 'About Us' %}</div>
+            <div class="footer__about">
+                <p>{% trans 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repudiandae, molestiae est placeat asperiores laudantium nobis numquam ipsa eius optio saepe totam sed sequi voluptatum quos architecto nostrum quaerat maiores consequuntur? Maiores quo consectetur soluta vero, nobis magnam est dolor illum quidem dolore ratione illo aperiam veniam provident ipsa officiis! Laborum!' %}</p>
+            </div>
+        </div>
+        <div class="footer__info">
+            <a href="/" class="footer__info--logo"><img src="{% static 'img/logoii.png' %}" alt="footer logo"></a>
+            <div class="footer__info--title">{% trans "Contact Info" %}</div>
+            <a href="tel:+99899 982-10-01" class="footer__info--subtitle" style="width: 101%;">+99899 982-10-01</a>
+            <a href="tel:+99833 868-38-26" class="footer__info--subtitle" style="width: 101%;">+99833 868-38-26</a>
+            <div class="footer__info--subtitle">dovurovjamshid95@gmail.com</div>
+            <div class="footer__info--messangers footer__iconss">
+                <a href="#" class="footer__icon--item"><i class="fa fa-instagram"></i></a>
+                <a href="#" class="footer__icon--item"><i class="fa fa-youtube"></i></a>
+                <a href="#" class="footer__icon--item"><i class="fa fa-telegram"></i></a>
+                <a href="#" class="footer__icon--item"><i class="fa fa-facebook"></i></a>
+            </div>
+        </div>
+        <div class="footer__map">
+            <div class="mapouter">
+                <div class="gmap_canvas">
+                    <iframe width="700" height="360" id="gmap_canvas"
+                            src="https://maps.google.com/maps?q=uzbekistan%2C%20toshkent%2C%20mirzo%20ulugbek&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                            frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                    <a
+                            href="https://2piratebay.org">{% static 'free movies' %}</a></div>
+            </div>
+        </div>
+    </div>
+    <div class="footer__creators">
+        {% now 'Y' as current_year %}
+        <p><span> ©️</span>{{ current_year }} <em style="color: orange">"oline <b>EDUCATION</b> platform"</em> </p>
+        <p>{% trans 'web site auther '%}- <a class="footer__company" href="https://jamshid98.pythonanywhere.com/">Dovurov Jamshid</a></p>
+    </div>
+</footer>
