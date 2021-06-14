@@ -21,7 +21,7 @@
 		{% get_current_language as LANGUAGE_CODE %}
 		<input type='hidden' id='language_type' value="{{ LANGUAGE_CODE }}">
 	
-		<section class="content">
+		<section class="content_second">
 			<div class="content__img">
 				<img src="{% static 'img/sale.jpg' %}" alt="sale-img">
 			</div>
@@ -30,16 +30,16 @@
 			{% include 'includes/navbar.html' %}
 			<!-- end Navbar -->
 			
-			<div class="content__text">
-				<div class="content__title title">{% trans "Ulkan chegirma va aksiyalar" %}<br>{% trans " sizni Kutmoqda" %}</div>
+			<div class="content__text_second">
+				<div class="content__title title">{% trans "Don't lose time, take a chance with huge discount" %}</div>
 			</div>
 		</section>
 		
 		<section class="sale">
-			<div class="sale__title">{% trans "Aksiya va chegirmalar" %}</div>
+			<div class="sale__title">{% trans "Lessons With Discount" %}</div>
 			<div class="sale__line"></div>
 			
-			<div class="sale__cards">
+			<!-- <div class="sale__cards">
 				
 				{% for object in object_list %}
 				<div class="sale__card">
@@ -63,7 +63,42 @@
 					<h3 style="margin: 15%; color:cadetblue" >{% trans "Chegirmalar mavjud emas" %};)</h3>
 				{% endfor %}
 
+			</div> -->
+
+
+			<!-- Main Body Content -->
+			<div class="freeproducts__cards">
+
+				{% for object in object_list %}
+				
+					<div class="freeproducts__card" style="margin-bottom: 20px;">
+						
+						<div class="freeproducts__card--title">
+							<img src="{% static 'img/icons/prosent.svg' %}" alt="% prosent icon" class="sale__card--img">
+							{{ object.name|truncatechars:30 }}
+						</div>
+						<div class="freeproducts__card--image">
+							<img src="{{ object.imageURL }}" alt="free product image" class="freeproducts__card--img"></img>
+						</div>
+						<div class="freeproducts__card--footer">
+							<div class="freeproducts__card--current">
+								<img src="{% static 'img/icons/sale-current.svg' %}" alt="current img">
+								<p> {{ object.downloaded }}</p>
+							</div>
+							<a href="{% url 'Core:model-detail-view' object.slug %}" style="color: white;">
+							<div class="freeproducts__card--info">
+								{% trans "view more" %}
+							</div></a>
+							<img src="{% static 'img/icons/favorite-button.svg' %}" alt="shopping-cart">
+						</div>
+					</div>
+				{% empty %}
+					<h3 style="margin: 15%; color:cadetblue" >{% trans "There is no avoilable free lessons ;)" %}</h3>
+				{% endfor %}
+
 			</div>
+			<!-- Main Body Content -->
+
 			
 			<!-- Pagination -->
 			{% include "includes/paginator.html" %}

@@ -36,6 +36,7 @@ class Category(models.Model):
 class SubCategory(models.Model):
     primary_category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='primary_category', verbose_name=_("Primary Category"))
     name = models.CharField(_("Category"), max_length=200, unique=True, )
+    slug = models.SlugField(max_length=350, null=True)
     image = ImageField(_("Category Image"), upload_to="category/%Y/%m/%d/", blank=True, null=True,)
 
     price    = models.BigIntegerField(_('Price'), blank=True, null=True, validators=(MinValueValidator(1), MaxValueValidator(100000000),))

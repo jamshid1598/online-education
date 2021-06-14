@@ -29,11 +29,13 @@ class CategoryAdmin(AdminImageMixin, TranslationAdmin):
 
 @admin.register(SubCategory)
 class SubCategoryAdmin(AdminImageMixin, TranslationAdmin):
-    list_display = ('primary_category', 'name', 'price', 'discount', 'paid', 'free',)
+    list_display = ('primary_category', 'name', 'slug', 'price', 'discount', 'paid', 'free',)
     list_display_links=('name',)
-    list_editable = ('primary_category', 'price', 'discount', 'paid', 'free',)
+    list_editable = ('primary_category', 'slug', 'price', 'discount', 'paid', 'free',)
     ordering = ('primary_category', 'name', 'price', 'discount', 'paid', 'free',)
     search_fields = ('primary_category', 'name',  'price', 'discount', 'paid', 'free',)
+
+    prepopulated_field = {'slug': ['name',]}
 
     fieldsets = (
         (_('Sub-Category'), {

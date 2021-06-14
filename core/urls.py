@@ -6,7 +6,7 @@ from .views import (
     ModelDetailView,
     AllLesson,
     PaymentView,
-    FreeModelListView,
+    FreeLessonListView,
     download_counter,
 
     downloads,
@@ -35,7 +35,7 @@ urlpatterns = [
     path('category/<int:pk>/', Categories.as_view(), name='category-view'),
     path('model/<slug:slug>/', ModelDetailView.as_view(), name='model-detail-view'),
 
-    path('free/', FreeModelListView.as_view(), name='free-detail-view'),
+    path('free/lessons/', FreeLessonListView.as_view(), name='free-lessons'),
     path('ajax/download_counter/', download_counter, name='download_counter'),
 
     path('all-lessons/', AllLesson.as_view(), name='all-lessons'),
@@ -51,7 +51,7 @@ urlpatterns = [
 
     path('contact/', Contact.as_view(), name='contact-view'),
     
-    path('aksiya/', DiscuntView.as_view(), name='aksiya-view'),
+    path('discount/', DiscuntView.as_view(), name='aksiya-view'),
 
     
     path('about/', AboutUsView.as_view(), name='about-view'),

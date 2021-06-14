@@ -15,13 +15,13 @@
 		<link rel="stylesheet" href="{% static 'css/main.css' %}">
 	{% endblock css %}
 
-	{% block title %}<title>{% trans "Bepul-mahsulotlar" %}</title>{% endblock title %}
+	{% block title %}<title>{% trans "All Lessons" %}</title>{% endblock title %}
 
 
 	{% block bodycontent %}
 		{% get_current_language as LANGUAGE_CODE %}
 		<input type='hidden' id='language_type' value="{{ LANGUAGE_CODE }}">
-		
+
 		{% comment %}
 		<section class="content">
 
@@ -47,7 +47,9 @@
 			</div>
 		</section>
 		{% endcomment %}
-			
+		
+
+		
 		<section class="content_second">
 			<div class="content__img">
 				<img src="{% static 'img/sale.jpg' %}" alt="sale-img">
@@ -63,13 +65,14 @@
 		</section>
 
 
+
+
 		<section class="freeproducts">
 
 			<div class="freeproducts__title">
 				<div class="freeproducts__line1"></div>
-				<div class="freeproducts__text">{% trans "Free Lessons" %}</div>
+				<div class="freeproducts__text">{% trans "All Lessons" %}</div>
 				<div class="freeproducts__line2"></div>
-				
 			</div>
 
 			<!-- Main Body Content -->

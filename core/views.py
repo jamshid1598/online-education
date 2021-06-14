@@ -86,12 +86,12 @@ class ModelDetailView(DetailView):
 
 
 class AllLesson(ListView):
-    template_name=''
+    template_name='all-lesson.html'
     model = SubCategory
 
-class FreeModelListView(ListView):
+class FreeLessonListView(ListView):
     template_name = "free.html"
-    model = Lesson
+    model = SubCategory
     paginate_by = 24
 
     def get_queryset(self):
@@ -103,8 +103,8 @@ class FreeModelListView(ListView):
 
 
 class DiscuntView(ListView):
-    template_name = "sale.html"
-    model = Lesson
+    template_name = "discount.html"
+    model = SubCategory
     paginate_by = 24
 
     def get_queryset(self):
