@@ -43,6 +43,7 @@ class SubCategoryAdmin(AdminImageMixin, TranslationAdmin):
                 'primary_category',
                 'name',
                 'image',
+                'like',
             ),
         }),
     )

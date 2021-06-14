@@ -84,14 +84,17 @@
 						</div>
 						<div class="freeproducts__card--footer">
 							<div class="freeproducts__card--current">
-								<img src="{% static 'img/icons/sale-current.svg' %}" alt="current img">
-								<p> {{ object.downloaded }}</p>
+								<img src="{% static 'img/icons/free.png' %}" alt="current img">
 							</div>
 							<a href="{% url 'Core:model-detail-view' object.slug %}" style="color: white;">
 							<div class="freeproducts__card--info">
 								{% trans "view more" %}
 							</div></a>
-							<img src="{% static 'img/icons/favorite-button.svg' %}" alt="shopping-cart">
+							{% if request.user in object.like.all %}
+								<a  onclick="like_unlike(this)" data-slug="{{ object.slug }}" class="text-white heartIcon"><i style='color: red;' class="fa fa-heart fa-2x"></i></a>
+							{% else %}
+								<a onclick="like_unlike(this)" data-slug="{{ object.slug }}" class="text-white heartIcon"><i class="fa fa-heart fa-2x"></i></a>
+							{% endif %}
 						</div>
 					</div>
 				{% empty %}

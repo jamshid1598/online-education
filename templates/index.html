@@ -229,7 +229,7 @@
 							<div class="blog__items">
 								<div class="owl-carousel owl-theme">
 									{% for sub_category in category.primary_category.all %}
-										<a href="{% url 'Core:category-view' sub_category.pk %}" class="blog__item">
+										<a href="{% url 'Core:lesson-view' sub_category.slug %}" class="blog__item">
 											<div class="blog__item--img">
 												<img src="{{ sub_category.imageURL }}" alt="slider-img">
 											</div>

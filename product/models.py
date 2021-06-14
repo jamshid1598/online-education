@@ -7,6 +7,8 @@ from urllib.parse import urlparse, parse_qs
 from django.template.defaultfilters import slugify
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 
 # Create your models here.
@@ -45,6 +47,8 @@ class SubCategory(models.Model):
     paid = models.BooleanField(_("Paid"), default=True, )
     free = models.BooleanField(_("Free"), default=False, )
 
+    like = models.ManyToManyField(User, blank=True, null=True, related_name="user_like",)
+
     class Meta:
         ordering = ['name']
         verbose_name = _('Sub-Category')
@@ -52,6 +56,14 @@ class SubCategory(models.Model):
 
     def __str__(self):
         return self.name
+    @property
+    def discount_per(self):
+        if self.discount:
+            sub = self.price - self.discount
+            discount_per = (sub/self.price)*100
+            return discount_per
+        else:
+            return None 
 
     @property
     def imageURL(self):

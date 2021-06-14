@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import (
     MainView,
-    Categories,
+    Category,
     ModelDetailView,
     AllLesson,
     PaymentView,
@@ -20,6 +20,7 @@ from .views import (
     abcd,
 
     search_query,
+    like_lesson,
 )
 from cart.views import (
     CartDetailView,
@@ -32,7 +33,7 @@ app_name='Core'
 
 urlpatterns = [
     path('', MainView.as_view(), name = "main-view"),
-    path('category/<int:pk>/', Categories.as_view(), name='category-view'),
+    path('lesson/<slug:slug>/', Category.as_view(), name='lesson-view'),
     path('model/<slug:slug>/', ModelDetailView.as_view(), name='model-detail-view'),
 
     path('free/lessons/', FreeLessonListView.as_view(), name='free-lessons'),
@@ -57,6 +58,7 @@ urlpatterns = [
     path('about/', AboutUsView.as_view(), name='about-view'),
 
     path('ajax/search_query/', search_query, name='search_query'),
+    path('ajax/like/lesson/', like_lesson, name='likes'), 
 
     path('save_model/', save_model, name='save_model'),
 

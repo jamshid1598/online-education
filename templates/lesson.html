@@ -13,6 +13,7 @@
 		<!-- style-link -->
 		<link rel="stylesheet" href="{% static 'css/style.css' %}">
 		<link rel="stylesheet" href="{% static 'css/main.css' %}">
+		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
 	{% endblock css %}
 
 	{% block title %} <title>{{ primary_category }}</title> {% endblock title %}
@@ -28,7 +29,34 @@
 			{% include 'includes/navbar-free.html' %}
 			<!-- end Navbar -->
 
+			<div class="freecontent ">
+				<div class="freecontent__text">
+					<div>
+						<img class="fancboxss" src ="{{ object.image.url }}" ass="freecontent__title">{% trans "Ulkan Chegirma va Aksiyalar " %}<br>
+                        {% trans "Sizni Kutmoqda" %}
+					</div>
+					<div class="freecontent__subtitle">
+                        <p>{% trans "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Malesuada faucibus molestie nunc placerat" %}
+						</p>
+					</div>
+				</div>
+
+				<div class="freecontent__image">
+					<img src="{% static 'img/freeContent--img.jpg' %}" alt="content image" class="freecontent__img">
+				</div>
+			</div>
 		</section>
+
+		{% comment %}
+		<section class="content">
+
+			<!-- Navbar -->
+			{% include 'includes/navbar-free.html' %}
+			<!-- end Navbar -->
+
+		</section>  
+		{% endcomment %}
+		
 
 		<section class="freeproducts">
 			<div class="freeproducts__title freeproducts--item">
@@ -77,4 +105,5 @@
 		<!--javascript-->
 		<script src="{% static 'js/main.js' %}"></script>
 		<!--/javascript-->
+
 	{% endblock js %}
