@@ -1,0 +1,104 @@
+			/* -------- For Codepen --------- */
+
+            .one, .three {
+                margin: 30px auto !important;
+              }
+              
+              /* ---------------------------- */
+              /* ---------- True Code ---------- */
+              
+              
+               .grid-cards {
+                display: grid;
+              
+                justify-content: center;
+                grid-template-columns: 70% 30%;
+                margin: 1rem 0;
+                /* height: 100%; */
+              }
+              .grid-cards_box{
+                  display: list-item;
+                  flex-direction: column;
+                  grid-template-columns: 1 !important;
+                  grid-auto-rows: minmax(min-content, max-content);
+              }
+              @media (max-width: 922px) and (min-width: 601px) {
+                .container .grid-cards {
+                  display: grid;
+                  grid-template-columns: repeat(2, 1fr);
+                }
+              }
+              @media (max-width: 600px) {
+                .container .grid-cards {
+                  flex-direction: 70% 30%;
+                }
+              }
+              .container .grid-cards .card {
+                  position: relative;
+                  flex: 1;
+                  background: #fff;
+                  padding: 1rem 1rem 1.5rem;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+                border-radius: 1rem;
+                min-height: 170px;
+                margin: 15px;
+                transition: all ease 0.3s;
+                overflow: hidden;
+                animation: fadeInLeft 1.5s backwards;
+              }
+              
+              .container .grid-cards .card img {
+                aspect-ratio: 500/320;
+                width: 100%;
+                border-radius: 12px;
+                margin-bottom: 15px;
+                position: relative;
+                max-height: 320px;
+                object-fit: cover;
+                box-shadow: 0 6px 16px -7px #aaa;
+              }
+              .container .grid-cards .card .card-body {
+                color: #676767;
+                width: 100%;
+                
+                padding: 0 0.8rem;
+                padding: 30px 20px ;
+                position: relative;
+              }
+              .container .grid-cards .card .card-body .title-card {
+                /* text-align: center; */
+                font-size: 30px;
+              }
+              .container .grid-cards .card .card-body p {
+                font-size: 14px;
+                line-height: 22px;
+                font-weight: 300;
+              }
+              .container .grid-cards .card .card-footer {
+                display: flex;
+                justify-content: flex-end;
+                position: absolute;
+                bottom: 0;
+                width: calc(100% - 1rem);
+              }
+              .container .grid-cards .card .card-footer a {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: #FFD854;
+                color: #fff;
+                text-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+                font-size: 1rem;
+                text-decoration: none;
+                width: 56%;
+                height: 40px;
+                border-top-left-radius: 1rem;
+                border-bottom-right-radius: 1rem;
+              }
+
+              .box_lesson_block:hover{
+                background:#FFD854 !important;
+              }
+             
+
+            

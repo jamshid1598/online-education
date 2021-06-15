@@ -28,6 +28,12 @@
 			{{ form.first_name }}
         </p>
         <p class="form__item">
+            <label for="#Name"></label>
+            <!-- <input class="form__input" id="Name" name="Name" type="text" placeholder="IFSH"> -->
+            {{ form.second_name.errors }}
+			{{ form.second_name }}
+        </p>
+        <p class="form__item">
             <label for="text"></label>
             <!-- <input class="form__input" id="text" name="text" type="text" placeholder="Telefon Raqam"> -->
             {{ form.phone_number.errors }}

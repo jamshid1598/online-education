@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import (
     MainView,
-    Category,
+    SubjectDetail,
     ModelDetailView,
     AllLesson,
     PaymentView,
@@ -33,7 +33,9 @@ app_name='Core'
 
 urlpatterns = [
     path('', MainView.as_view(), name = "main-view"),
-    path('lesson/<slug:slug>/', Category.as_view(), name='lesson-view'),
+    path('lesson/<slug:slug>/', SubjectDetail.as_view(), name='lesson-view'),
+    path('lesson/<slug:slug>/<slug:l_slug>/', SubjectDetail.as_view(), name='lesson-view'),
+
     path('model/<slug:slug>/', ModelDetailView.as_view(), name='model-detail-view'),
 
     path('free/lessons/', FreeLessonListView.as_view(), name='free-lessons'),

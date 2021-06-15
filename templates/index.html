@@ -224,21 +224,21 @@
 				<div class="blog__slider">
 
 					{% for category in object_list %}
-						{% if category.primary_category.all %}	
+						{% if category.category_subject.all %}	
 							<div class="blog__slider--title">{{ category.name }}</div>
 							<div class="blog__items">
 								<div class="owl-carousel owl-theme">
-									{% for sub_category in category.primary_category.all %}
-										<a href="{% url 'Core:lesson-view' sub_category.slug %}" class="blog__item">
+									{% for subject in category.category_subject.all %}
+										<a href="{% url 'Core:lesson-view' subject.slug %}" class="blog__item">
 											<div class="blog__item--img">
-												<img src="{{ sub_category.imageURL }}" alt="slider-img">
+												<img src="{{ subject.imageURL }}" alt="slider-img">
 											</div>
-											<div class="blog__item--subtitle">{{ sub_category.name|truncatechars:23 }} <br> </div>
+											<div class="blog__item--subtitle">{{ subject.name|truncatechars:23 }} <br> </div>
 											<br>
-											{% if sub_category.free %}
-												<p><button style='background-color: yellow; color: rgb(58, 54, 54)'>{% trans 'tekin' %}</button></p>
+											{% if subject.free %}
+												<p><button style='background-color: yellow; color: rgb(58, 54, 54)'>{% trans 'Free' %}</button></p>
 											{% else %}
-												<p style='color: rgb(58, 54, 54)'>{{ sub_category.price }} {% trans "so'm" %}</p>
+												<p style='color: rgb(58, 54, 54)'>{{ subject.price }} {% trans "so'm" %}</p>
 											{% endif %}
 										</a>
 									{% endfor %}

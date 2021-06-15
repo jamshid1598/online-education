@@ -40,3 +40,4 @@ class OrderedItemAdmin(admin.ModelAdmin):
     }
 
 admin.site.register(OrderedItem, OrderedItemAdmin)
+

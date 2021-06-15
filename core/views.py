@@ -40,34 +40,34 @@ class MainView(ListView):
 	paginate_by = 5
 
 
-class Category(ListView):
+class SubjectDetail(DetailView):
 	template_name = "lesson.html"
-	model = Lesson
-	paginate_by = 24
+	model = Subject
 
 	slug_field = 'slug'
 	slug_url_kwarg = 'slug'
 
-	def get_queryset(self):
-		queryset = super().get_queryset()
-		try:
-			slug = self.kwargs.get('slug')
-			category = SubCategory.objects.get(slug=slug)
-			return queryset.filter(category=category)
-		except:
-			queryset = None
-			return queryset
-
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
-		try:
-			slug = self.kwargs.get('slug')
-			category = SubCategory.objects.get(slug=slug)
-			context["primary_category"] = category.primary_category.name
-			context["sub_category"] = category
+		context["category"] = self.object.category
+		try: 
+			l_slug = self.kwargs.get('l_slug')
+			c_lesson = Lesson.objects.get(slug=l_slug, subject=self.object)
+			context["c_lesson"] = c_lesson
+			try:
+				context["n_lesson"] = Lesson.objects.get(lesson_series=c_lesson.lesson_series+1, subject=self.object)
+			except:
+				context["n_lesson"] = None
 		except:
-			context["sub_category"] = category
-			context["primary_category"] = 'Online Education'
+			c_lesson = Lesson.objects.filter(subject=self.object).order_by("lesson_series").first()
+			context["c_lesson"] = c_lesson
+			try:
+				context["n_lesson"] = Lesson.objects.get(lesson_series=c_lesson.lesson_series+1, subject=self.object)
+				print("hello")
+			except:
+				context["n_lesson"] = None
+				print("hello")
+
 		return context
 	
 
@@ -91,11 +91,11 @@ class ModelDetailView(DetailView):
 
 class AllLesson(ListView):
 	template_name='all-lesson.html'
-	model = SubCategory
+	model = Subject
 
 class FreeLessonListView(ListView):
 	template_name = "free.html"
-	model = SubCategory
+	model = Subject
 	paginate_by = 24
 
 	def get_queryset(self):
@@ -108,21 +108,20 @@ class FreeLessonListView(ListView):
 
 class DiscuntView(ListView):
 	template_name = "discount.html"
-	model = SubCategory
+	model = Subject
 	paginate_by = 24
 
 	def get_queryset(self):
 		queryset = super().get_queryset()
 		discount_list = []
-
-		for lesson in queryset.filter(paid=True, free=False):
-			if lesson.discount:
-				discount_list.append(lesson)
 		try:
+			for sub in queryset.filter(free=False):
+				if sub.discount:
+					discount_list.appand(sub)
 			queryset = discount_list
-			return queryset
 		except:
-			return queryset
+			queryset = discount_list
+		return queryset
 
 
 class PaymentView(LoginRequiredMixin, View):

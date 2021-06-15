@@ -7,5 +7,4 @@ from django.db import models
 class LessonFilter(django_filters.FilterSet):
     name=CharFilter(field_name='name', lookup_expr='icontains')
     class Meta:
-        fields=['name', 'slug', 'short_info', 'body', 'price', 'discount']
-        # exclude=['']
+        fields=['name', 'slug', 'body',]

@@ -21,7 +21,7 @@ import os
 
 
 from product.models import (
-	SubCategory, 
+	Subject, 
 	Lesson,
 )
 from .models import *

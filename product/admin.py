@@ -6,7 +6,7 @@ from modeltranslation.admin import TranslationAdmin
 from django.utils.translation import gettext_lazy as _
 from .models import (
     Category,
-    SubCategory,
+    Subject,
     Lesson,
 )
 
@@ -27,54 +27,71 @@ class CategoryAdmin(AdminImageMixin, TranslationAdmin):
     )
 
 
-@admin.register(SubCategory)
-class SubCategoryAdmin(AdminImageMixin, TranslationAdmin):
-    list_display = ('primary_category', 'name', 'slug', 'price', 'discount', 'paid', 'free',)
-    list_display_links=('name',)
-    list_editable = ('primary_category', 'slug', 'price', 'discount', 'paid', 'free',)
-    ordering = ('primary_category', 'name', 'price', 'discount', 'paid', 'free',)
-    search_fields = ('primary_category', 'name',  'price', 'discount', 'paid', 'free',)
+@admin.register(Subject)
+class SubjectAdmin(AdminImageMixin, TranslationAdmin):
+    list_display = ('category', 'name', 'teacher_info', 'downloaded', 'price', 'discount', 'free',)
+    list_display_links=('name', 'downloaded',)
+    list_editable = ('category', 'price', 'discount', 'free',)
+    ordering = ('category', 'name', 'downloaded', 'price', 'discount', 'free',)
+    search_fields = ('category', 'name', 'downloaded',  'price', 'discount', 'free',)
 
-    prepopulated_field = {'slug': ['name',]}
+    def teacher_info(self, obj):
+        if obj.teacher:
+            teacher = obj.teacher.teacher.first_name+" | "+str(obj.teacher.teacher.phone_number)
+        else:
+            teacher = ''
+        return teacher
+
+    prepopulated_fields = {'slug': ['name',]}
 
     fieldsets = (
-        (_('Sub-Category'), {
+        (_('Subject'), {
             "fields": (
-                'primary_category',
+                'category',
+                'teacher',
                 'name',
+                'slug',
                 'image',
-                'like',
+                'short_info',
+
+                'price',
+                'discount',
+                'free',
             ),
         }),
     )
+    
+    formfield_overrides = {
+        models.TextField: {'widget': TinyMCE}
+    }
 
 
 
 @admin.register(Lesson)
 class LessonAdmin(AdminImageMixin, TranslationAdmin):
 
-    list_display = ('category', 'name', 'downloaded', 'published_at', 'updated_at',)
-    list_display_links = ('name', 'downloaded', 'published_at', 'updated_at',)
-    search_fields = ('name',  'category', 'downloaded', 'published_at', 'updated_at',)
-    ordering = ('name',  'category', 'downloaded', 'published_at', 'updated_at',)
-    list_editable = ( 'category',)
+    list_display = ('subject', 'name', 'lesson_series', 'published_at', 'updated_at',)
+    list_display_links = ('name', 'published_at', 'updated_at',)
+    search_fields = ('name', 'lesson_series', 'subject', 'published_at', 'updated_at',)
+    ordering = ('name',  'subject', 'lesson_series', 'published_at', 'updated_at',)
+    list_editable = ( 'subject', 'lesson_series',)
 
     prepopulated_fields = {'slug': ('name',)}
 
     fieldsets = (
-        (_('Lesson Category'), {
+        (_('Subject'), {
             "fields": (
-                ('category',)
+                ('subject',)
             ),
         }),
         (_('Lesson Video/Image'), {
             "fields": (
-                ('video_url', 'video_file', 'image')
+                ('video_file', 'image')
             ),
         }),
-        (_('Lesson'), {
+        (_('Lesson Body'), {
             "fields": (
-                ('name', 'slug', 'short_info', 'body', )
+                ('name', 'slug', 'body', )
             ),
         }),
     )

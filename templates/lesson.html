@@ -13,10 +13,12 @@
 		<!-- style-link -->
 		<link rel="stylesheet" href="{% static 'css/style.css' %}">
 		<link rel="stylesheet" href="{% static 'css/main.css' %}">
+		<link rel="stylesheet" href="{% static 'css/style-lesson.css' %}">
+
 		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
 	{% endblock css %}
 
-	{% block title %} <title>{{ primary_category }}</title> {% endblock title %}
+	{% block title %} <title>{{ category }}</title> {% endblock title %}
 	
 	{% block bodycontent %}
 
@@ -24,74 +26,151 @@
 		<input type='hidden' id='language_type' value="{{ LANGUAGE_CODE }}">
 
 		<section class="content">
-
-			<!-- Navbar -->
-			{% include 'includes/navbar-free.html' %}
-			<!-- end Navbar -->
-
-			<div class="freecontent ">
-				<div class="freecontent__text">
-					<div>
-						<img class="fancboxss" src ="{{ object.image.url }}" ass="freecontent__title">{% trans "Ulkan Chegirma va Aksiyalar " %}<br>
-                        {% trans "Sizni Kutmoqda" %}
-					</div>
-					<div class="freecontent__subtitle">
-                        <p>{% trans "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Malesuada faucibus molestie nunc placerat" %}
-						</p>
-					</div>
-				</div>
-
-				<div class="freecontent__image">
-					<img src="{% static 'img/freeContent--img.jpg' %}" alt="content image" class="freecontent__img">
-				</div>
-			</div>
-		</section>
-
-		{% comment %}
-		<section class="content">
-
-			<!-- Navbar -->
-			{% include 'includes/navbar-free.html' %}
-			<!-- end Navbar -->
-
-		</section>  
-		{% endcomment %}
 		
-
-		<section class="freeproducts">
-			<div class="freeproducts__title freeproducts--item">
-				<div class="freeproducts__line1"></div>
-				<div class="freeproducts__text">{{ sub_category.name }}</div>
-				<div class="freeproducts__line2"></div>
-				
-			</div>
+			<!-- Navbar -->
+			{% include 'includes/navbar-free.html' %}
+			<!-- end Navbar -->
 			
-			<div class="freeproducts__cards">
-				{% for object in object_list %}
-					<div class="freeproducts__card">
-						<a href="{% url 'Core:model-detail-view' object.slug %}" >
-							<div class="freeproducts__card--title">{{ object.name }}</div>
-							<div class="freeproducts__card--image">
-								<img src="{{ object.imageURL }}" alt="free product image" class="freeproducts__card--img"></img>
+			<div class="container one">
+		
+				<div class="grid-cards">
+				
+					<div class="card" >
+						<div class="card-body" style=" height: 100%; padding: 0 0.8rem;">
+						<div class="" style="height: 90%;">
+							<!-- <h1 class="title-card">{{ subject.name }}</h1> -->
+							<h2 style="padding: 20px 0;">{% trans "What is the purpose of this course?" %}</h2>
+							<p>{{ object.short_info|safe }}</p>
+						</div>
+							<div class="" style="align-items: flex-end; display: flex; justify-content: space-between;">
+								<div class=""><h6>{% trans "Lessons" %}:</h6><span> {{ object.subject_lesson.all|length }}</span></div>
+								<div class=""><h6>{% trans "Published at" %}:</h6><span> {{ object.is_updated }}</span></div>
 							</div>
-							<div class="freeproducts__card--footer">
-								<div class="freeproducts__card--current">
-									<img src="{% static 'img/icons/sale-current.svg' %}" alt="current img">
-									<p> {{ object.downloaded }}</p>
-								</div>
-								<div class="freeproducts__card--info">{% trans "Ko’proq ma'lumot" %}</div>
-								<img src="{% static 'img/icons/shoppingcardfree.svg' %}" alt="shopping-cart">
-							</div>
-						</a>
+						</div>
 					</div>
-				{% endfor %}
-			</div>
+					<div class="card">
+
+						{% if object.teacher.imageURL != '' %}
+							<img src="{{ object.teacher.imageURL }}" alt="img-3" title="card image">
+						{% else %}
+							<img src="{% static 'img/anonumouse.png' %}" alt="img-3" title="card image">
+						{% endif %}
+						<div class="card-body" style="height: 90%; padding: 0 0.8rem;">
+							<table>															
+								<tr>
+									<td style="color: grey">Teacher:</td>
+									<td style="color: black">{{ object.teacher.full_name }}</td>
+								</tr>
+								<tr>
+									<td><small style="color: grey">Phone Number:</small></td>
+									<td><small style="color: black">{{ object.teacher.teacher.phone_number }}</small></td>
+								 </tr>
+							</table>
+							{% if object.free %}
+								<div class="" style=" display: flex; justify-content: space-between; align-items: center;">
+									<div class="" > 
+										<img style="padding-top: 15px;" src="{% static 'img/icons/free.png' %}" alt="current img"></>
+									</div>
+									<button class="" style="padding: 10px 20px; background-color: #54ff95; border-radius: 10px;"><a href="#start_lesson" style="color: black" >START</a></button>
+								</div>
+							{% else %}
+								<div class="" style=" display: flex; justify-content: space-between; align-items: center;">
+									
+									<div > 
+										<img style="padding-top: 15px;"  src="{% static 'img/icons/premium.png' %}" alt="current img"> 
+									</div>
+									<div style="margin-left:-130px"><p>{{ object.price }} so'm</p> </div>
+									<button class="" style="padding: 10px 20px; background-color: #54ff95; border-radius: 10px;">BUY</button>
+								</div>
+							{% endif %}
+
+						</div>
+					</div>			
+				</div>
+			</div>		
 		</section>
 
+		<section class="">
+			<div class="container one" id="start_lesson">
+				<div class="freeproducts__title freeproducts--item">
+					<div class="freeproducts__line1"></div>
+					<div class="freeproducts__text">{{ object.name }}</div>
+					<div class="freeproducts__line2"></div>
+				</div>
+				<div class="grid-cards" style="">
+					<div class="grid-cards_box">
+						<div class="card">
+							<div class="freeproducts__text">{{ c_lesson.name }}</div>
+							<video width="100%" controls>
+								<source src=”http://techslides.com/demos/sample-videos/small.ogv” type=video/ogg>
+								<source src="{{ c_lesson.video_file.url }}" type=video/mp4>
+							</video>
+							<div class="card-body">
+								<p>{{ c_lesson.body|safe }}</p>
+							</div>
+							<div class="card-footer">
+								{% if n_lesson %}
+									<a href="{% url 'Core:lesson-view' object.slug n_lesson.slug %}#start_lesson">{% trans "Next" %}</a>
+								{% else %}
+									<a href="#start_lesson">{% trans "Next" %}</a>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+					<div class="grid-cards_box">
+
+						{% for lesson in object.subject_lesson.all %}
+							{% if c_lesson.slug == lesson.slug %}
+								<div class="card box_lesson_block" style="min-height: auto; background:rgba(0,0,0,0.3) ;"> 
+									<div class="card-body" style="padding: 0 0.8rem;">
+										<div class="" style=" display: flex; justify-content: start; align-items: center;">
+											<div class="" style="width: 10%; margin-right: 4px;">{{ forloop.counter }}</div>
+											<div class="" style="border-left:1px solid black ; padding-left: 5px;">
+												<a href="{% url 'Core:lesson-view' object.slug lesson.slug %}#start_lesson" style="color:black">
+													<h4>{{ lesson.name }}</h4>
+												</a>	
+											</div>
+										</div>
+									</div>
+								</div>
+							{% else %}
+								<div class="card box_lesson_block" style="min-height: auto;"> 
+									<div class="card-body" style="padding: 0 0.8rem;">
+										<div class="" style=" display: flex; justify-content: start; align-items: center;">
+											<div class="" style="width: 10%; margin-right: 4px;">{{ forloop.counter }}</div>
+											<div class="" style="border-left:1px solid black ; padding-left: 5px;">
+												<a href="{% url 'Core:lesson-view' object.slug lesson.slug %}#start_lesson" style="color:black">
+													<h4>{{ lesson.name }}</h4>
+												</a>	
+											</div>
+										</div>
+									</div>
+								</div>
+							{% endif %}
+						{% empty %}
+							<div class="card" style="min-height: auto;" style="background-color: darkgray;"> 
+								<div class="card-body" style="padding: 0 0.8rem;">
+									<div class="" style="display: flex; justify-content: space-between; align-items: center;">
+										<div class="" style="width: 10%; margin-right: 4px;">{{ forloop.counter }}</div>
+										<div class="" style="border-left:1px solid black ; padding-left: 5px;">
+											<a href="#" style="color:black">
+												<h4>{% trans "There is no lesson avoilable" %}</h4>
+											</a>	
+										</div>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+						
+					</div>
+				</div>
+			</div>
+		</section>
 
 		<!-- Pagination -->
 		{% include "includes/paginator.html" %}
 		<!-- Pagination -->
+
 	{% endblock bodycontent %}
 
 	{% block js %} 

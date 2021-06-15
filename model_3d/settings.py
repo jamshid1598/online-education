@@ -72,6 +72,7 @@ INSTALLED_APPS = [
     'tinymce',
     'sorl.thumbnail',  # https://readthedocs.org/projects/sorl-thumbnail/downloads/pdf/latest/
     'django_filters',  # https://django-filter.readthedocs.io/en/stable/
+    'phonenumber_field',
 
     # local apps
     'core.apps.CoreConfig',
@@ -186,6 +187,9 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+# django-phonenumber-fields configuration
+PHONENUMBER_DEFAULT_REGION = 'UZ'
 
 gettext = lambda s: s
 
