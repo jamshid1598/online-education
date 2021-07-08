@@ -16,15 +16,16 @@
         <div class=" header__signin">
                 <img src="{% static 'img/icon\'s/bar-chart.svg' %}" alt="bar-chart icon">
             <p class=" header__paragraph" id="Download_counted"></p>
-                {% if request.user.is_authenticated %}
-                    <p class="header__registration">Hi {{ request.user.first_name }}</p>
-                    <a href="{% url 'logout' %}?next={{ request.path }}" class="header__registration">{% trans 'Logout' %}</a>
-                {% else %}
-                    <a href="{% url 'User:register' %}" class="header__registration">{% trans "Sign Up" %}</a>
-                    <a href="{% url 'login' %}?next={{ request.path }}" class="header__registration">{% trans 'Login' %}</a>
-                {% endif %}
-                <a href="{% url 'Core:card-view' %}" class="header__shopcard">
-                    <img src="{% static 'img/icon\'s/Group.svg' %}" alt="shoping card">
+            {% if request.user.is_authenticated %}
+                <p class="header__registration">Hi {{ request.user.first_name }}</p>
+                <a href="{% url 'logout' %}?next={{ request.path }}" class="header__registration">{% trans 'Logout' %}</a>
+            {% else %}
+                <a href="{% url 'User:register' %}" class="header__registration">{% trans "Sign Up" %}</a>
+                <a href="{% url 'login' %}?next={{ request.path }}" class="header__registration">{% trans 'Login' %}</a>
+            {% endif %}
+            <a href="{% url 'Core:card-view' %}" class="header__shopcard">
+                <!-- <img src="{% static 'img/icon\'s/Group.svg' %}" alt="shoping card"> -->
+                <img src="{% static 'img/icons/user.svg' %}" alt="shoping card">
             </a>
         </div>
         <div class=" header__language">

@@ -72,7 +72,7 @@
 
 	{% endblock css %}
 
-	{% block title %} <title>{% trans '3D Model' %}</title> {% endblock title %}
+	{% block title %} <title>onEDU</title> {% endblock title %}
 
 	{% block bodycontent %}
 
@@ -106,6 +106,8 @@
 			function search_query($this){
 				event.preventDefault();
 
+				var lang = document.getElementById('language_type').value;
+
 				var query = document.getElementById('search_input_field').value
 				document.getElementById('search_input_field').value = ""
 				var url =  "{% url 'Core:search_query' %}"
@@ -133,7 +135,7 @@
 
 								var discount = fields["discount"]
 								var price = 0
-								if (fields['paid'] == true){
+								if (fields['free'] == false){
 									if (discount == null){
 										price = fields["price"].toString() + " so'm"
 									}else{
@@ -150,9 +152,9 @@
 									<div class="modal__result">
 										<img src="${image_url}" alt="product images" class="modal__result--image"></img>
 										<div class="product__name">
-											<a href="/model/${fields['slug']}">
+											<a href="lesson/${fields['slug']}/">
 												<h3 class="product__name--title">${fields["name"]||""}</h3>
-												<p class="product__name--subtitle">${fields["short_info"]||""}</p>
+												<p class="product__name--subtitle">${fields["short_info"].slice(0, 5)||""}</p>
 											</a>
 										</div>
 										<strong class="product__price">${price}</strong>
@@ -208,13 +210,17 @@
 				width: 120% !important; 
 				margin-bottom: 30px;
 				}
-			.blog__item--subtitle {
-				width: 100% !important;
-				margin-top: 60px;
-			}
+				.blog__item--subtitle {
+					width: 100% !important;
+					margin-top: 60px;
+				}
 			}
 			
-
+			/* Resize images */
+			img.free_pro_image  {
+				max-width:12%;
+				max-height:12%;
+			}
 		</style>
 
 		<section class="blog">
@@ -234,12 +240,30 @@
 												<img src="{{ subject.imageURL }}" alt="slider-img">
 											</div>
 											<div class="blog__item--subtitle">{{ subject.name|truncatechars:23 }} <br> </div>
-											<br>
+											<br>	
+
 											{% if subject.free %}
-												<p><button style='background-color: yellow; color: rgb(58, 54, 54)'>{% trans 'Free' %}</button></p>
+												<div class="" style=" display: flex; justify-content: space-between; align-items: center;">
+													<div > 
+														<img class="free_pro_image" src="{% static 'img/icons/free.png' %}"  alt="current img">
+													</div>
+												</div>
+											{% elif subject.discount %}
+												<div class="" style=" display: flex; justify-content: space-between; align-items: center;">
+													<div > 
+														<img class="free_pro_image" style="padding-top: 15px;"  src="{% static 'img/icons/discount.png' %}" alt="current img"> 
+													</div>
+													<div style="margin-left: 0%;"><p>{{ subject.discount }} so'm</p> </div>
+												</div>
 											{% else %}
-												<p style='color: rgb(58, 54, 54)'>{{ subject.price }} {% trans "so'm" %}</p>
+												<div class="" style=" display: flex; justify-content: space-between; align-items: center;">
+													<div > 
+														<img class="free_pro_image" style="padding-top: 15px;"  src="{% static 'img/icons/premium.png' %}" alt="current img"> 
+													</div>
+													<div style="margin-left: 0%;"><p>{{ subject.price }} so'm</p> </div>
+												</div>
 											{% endif %}
+
 										</a>
 									{% endfor %}
 								</div>

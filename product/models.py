@@ -72,7 +72,7 @@ class Subject(models.Model):
         if self.discount:
             sub = self.price - self.discount
             discount_per = (sub/self.price)*100
-            return discount_per
+            return round(discount_per, 2)
         else:
             return None 
 

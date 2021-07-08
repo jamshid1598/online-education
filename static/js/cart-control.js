@@ -23,6 +23,7 @@ function add_to_cart_view($this){
 }
 
 
+
 function updateUserOrder(pk, action, pageid, lang){
 	console.log('User is authenticated, sending data...')
 	console.log("language", lang)

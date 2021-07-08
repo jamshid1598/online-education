@@ -66,16 +66,27 @@
 									<td><small style="color: black">{{ object.teacher.teacher.phone_number }}</small></td>
 								 </tr>
 							</table>
-							{% if object.free %}
+							{% if object.free and object.subject_lesson.all|length > 0 %}
 								<div class="" style=" display: flex; justify-content: space-between; align-items: center;">
 									<div class="" > 
 										<img style="padding-top: 15px;" src="{% static 'img/icons/free.png' %}" alt="current img"></>
 									</div>
 									<button class="" style="padding: 10px 20px; background-color: #54ff95; border-radius: 10px;"><a href="#start_lesson" style="color: black" >START</a></button>
 								</div>
-							{% else %}
+							{% elif object.discount and object.subject_lesson.all|length > 0 %}
 								<div class="" style=" display: flex; justify-content: space-between; align-items: center;">
-									
+									<div > 
+										<img style="padding-top: 15px;"  src="{% static 'img/icons/discount.png' %}" alt="current img"> 
+									</div>
+									<div style="margin-left:-130px">
+										<small><del style="text-decoration: line-through;">{{ object.price }} so'm</del></small> 
+										<h6 style="color: orange">{{ object.discount_per }}%</h6>
+										<p>{{ object.discount }} so'm</p>
+									</div>
+									<button class="" style="padding: 10px 20px; background-color: #54ff95; border-radius: 10px;">BUY</button>
+								</div>
+							{% elif object.subject_lesson.all|length > 0 %}
+								<div class="" style=" display: flex; justify-content: space-between; align-items: center;">
 									<div > 
 										<img style="padding-top: 15px;"  src="{% static 'img/icons/premium.png' %}" alt="current img"> 
 									</div>
@@ -83,7 +94,7 @@
 									<button class="" style="padding: 10px 20px; background-color: #54ff95; border-radius: 10px;">BUY</button>
 								</div>
 							{% endif %}
-
+						
 						</div>
 					</div>			
 				</div>
@@ -99,23 +110,25 @@
 				</div>
 				<div class="grid-cards" style="">
 					<div class="grid-cards_box">
-						<div class="card">
-							<div class="freeproducts__text">{{ c_lesson.name }}</div>
-							<video width="100%" controls>
-								<source src=”http://techslides.com/demos/sample-videos/small.ogv” type=video/ogg>
-								<source src="{{ c_lesson.video_file.url }}" type=video/mp4>
-							</video>
-							<div class="card-body">
-								<p>{{ c_lesson.body|safe }}</p>
+						{% if c_lesson %}
+							<div class="card">
+								<div class="freeproducts__text">{{ c_lesson.name }}</div>
+								<video width="100%" controls>
+									<source src=”http://techslides.com/demos/sample-videos/small.ogv” type=video/ogg>
+									<source src="{{ c_lesson.video_file.url }}" type=video/mp4>
+								</video>
+								<div class="card-body">
+									<p>{{ c_lesson.body|safe }}</p>
+								</div>
+								<div class="card-footer">
+									{% if n_lesson %}
+										<a href="{% url 'Core:lesson-view' object.slug n_lesson.slug %}#start_lesson">{% trans "Next" %}</a>
+									{% else %}
+										<a href="#start_lesson">{% trans "Next" %}</a>
+									{% endif %}
+								</div>
 							</div>
-							<div class="card-footer">
-								{% if n_lesson %}
-									<a href="{% url 'Core:lesson-view' object.slug n_lesson.slug %}#start_lesson">{% trans "Next" %}</a>
-								{% else %}
-									<a href="#start_lesson">{% trans "Next" %}</a>
-								{% endif %}
-							</div>
-						</div>
+						{% endif %}
 					</div>
 					<div class="grid-cards_box">
 

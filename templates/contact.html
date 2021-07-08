@@ -34,8 +34,8 @@
                     {% csrf_token %}
                     {{ form.non_field_errors }}
 
-                    <p class="contact__title">{% trans 'Bizga murojaatingiz bormi?' %} <br>
-                        <span class="contact__desc">{% trans 'Unda ikkilanmasdan bizga yuboring' %}</span>
+                    <p class="contact__title">{% trans 'Do you have any question or any suggestion?' %} <br>
+                        <span class="contact__desc">{% trans 'just leave a message without hesitation ;)' %}</span>
                     </p>
                     <div class="contact__item">
                         <label for="name"></label>
@@ -65,27 +65,27 @@
                         
                     </div>
                     <div class="contact__item">
-                        <button class="contact__submit" type="submit" id="submit">{% trans "Jo'natish" %}</button>
+                        <button class="contact__submit" type="submit" id="submit">{% trans "Send" %}</button>
                     </div>
                 </form>
 
             </div>
             <div class="contact__section">
                 <div class="contact__menu">
-                    <p class="contact__text">{% trans 'Lorem ipsum dolor sit amet. Non libero curabit' %}</p>
+                    <p class="contact__text">{% trans 'Contact Info' %}</p>
+                  
                     <div class="contact__items">
                         <img class="contact__images" src="{% static 'img/icons/address%201.png' %}" alt="address">
-                        <p class="contact__group"><span class="contact__span">{% trans 'Manzil ' %}</span>: {% trans 'Feugiat sit arcu posuere.' %}</p>
+                        <p class="contact__group"><span class="contact__span">{% trans 'Manzil ' %}</span>: {% trans "Tashkent sh. Mirzo Ulug'bek t." %}</p>
                     </div>
                     <div class="contact__items">
                         <img class="contact__images" src="{% static 'img/icons/phone-call.png' %}" alt="call">
-                        <p class="contact__group"><span class="contact__span">{% trans 'Telefon' %} </span>: +99899-999-99-99</p>
+                        <p class="contact__group"><span class="contact__span">{% trans 'Telefon' %} </span>: +99899-868-38-26</p>
                     </div>
                     <div class="contact__items">
                         <img class="contact__images" src="{% static 'img/icons/email.png' %}" alt="email">
-                        <p class="contact__group"><span class="contact__span">{% trans 'Email' %} </span>: sbahsajhvhsjv@gmail.com</p>
+                        <p class="contact__group"><span class="contact__span">{% trans 'Email' %} </span>: dovurovjamshid95@gmail.com</p>
                     </div>
-
                 </div>
             </div>
 

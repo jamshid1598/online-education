@@ -34,12 +34,14 @@ from product.filters import LessonFilter
 from download.views import create_verify
 
 
+# show top categories and their subjects
 class MainView(ListView):
 	model = Category
 	template_name = "index.html"
 	paginate_by = 5
 
 
+# show subject info and lessons
 class SubjectDetail(DetailView):
 	template_name = "lesson.html"
 	model = Subject
@@ -69,30 +71,15 @@ class SubjectDetail(DetailView):
 				print("hello")
 
 		return context
-	
 
 
-class ModelDetailView(DetailView):
-	template_name = 'Mahsulot.html'
-	model = Lesson
-
-	slug_field = 'slug'
-	slug_url_kwarg = 'slug'
-
-	# def get_context_data(self, **kwargs):
-	#     context = super().get_context_data(**kwargs)
-
-	#     # images related to 3d model object
-	#     md = Lesson.objects.get(slug=self.kwargs['slug'])
-		# context['image_list'] = md.product_images.all()
-
-	#     return context
-
-
+# show all lessons
 class AllLesson(ListView):
 	template_name='all-lesson.html'
 	model = Subject
 
+
+# show free lessons
 class FreeLessonListView(ListView):
 	template_name = "free.html"
 	model = Subject
@@ -106,6 +93,7 @@ class FreeLessonListView(ListView):
 			return queryset
 
 
+# show discount lessons
 class DiscuntView(ListView):
 	template_name = "discount.html"
 	model = Subject
@@ -114,14 +102,20 @@ class DiscuntView(ListView):
 	def get_queryset(self):
 		queryset = super().get_queryset()
 		discount_list = []
-		try:
-			for sub in queryset.filter(free=False):
-				if sub.discount:
-					discount_list.appand(sub)
-			queryset = discount_list
-		except:
-			queryset = discount_list
+
+		for sub in queryset.filter(free=False):
+			if sub.discount:
+				discount_list.append(sub)
+		queryset = discount_list
 		return queryset
+
+
+class ModelDetailView(DetailView):
+	template_name = 'Mahsulot.html'
+	model = Lesson
+
+	slug_field = 'slug'
+	slug_url_kwarg = 'slug'
 
 
 class PaymentView(LoginRequiredMixin, View):
@@ -181,13 +175,14 @@ class PaymentView(LoginRequiredMixin, View):
 		return redirect('Core:payment-view')
 
 
+# authenticated users can like lessons
 @login_required
 def like_lesson(request):
 	data = json.loads(request.body)
 	slug = data['slug']
 	print('slug', slug)
 	try:
-		obj = SubCategory.objects.get(slug=slug)
+		obj = Subject.objects.get(slug=slug)
 	except Exception as e:
 		obj=None
 	if obj and obj.like.filter(id=request.user.id).exists():
@@ -210,15 +205,12 @@ def download_counter(request):
 	)
 
 
+# show downlods of video lesson 
 def downloads(request, *args, **kwargs):
-	# print("Customer, ", request.user.customer.user.first_name)
-	# print("Curront url: ", request.path)
-	# print(request.build_absolute_uri)
-
-	models = Lesson.objects.all()
+	subjects = Subject.objects.all()
 	downloads = 0
-	if models:
-		downloads = sum([product.downloaded for product in models])
+	if subjects:
+		downloads = sum([subject.downloaded for subject in subjects])
 		try:
 			return JsonResponse({"instance": downloads, }, safe=False, status=200)
 		except Exception as e:
@@ -245,7 +237,7 @@ def save_model(request):
 	return redirect('/')
 
 
-# end other changes
+#  show about-us view
 class AboutUsView(View):
 	template_name = "about.html"
 	context = {}
@@ -263,7 +255,7 @@ from users.forms import FeedbackForm
 
 
 class Contact(View):
-	template_name = 'Aloqa.html'
+	template_name = 'contact.html'
 	context = {}
 
 	def get(self, request, *args, **kwargs):
@@ -289,7 +281,7 @@ class Contact(View):
 					subject = "Subject"
 					thoughts = f"{first_name} {last_name}dan yangi xabar: \n\n{text}\nTel: {phone_number}"
 					sender = settings.EMAIL_HOST_USER
-					recipients = ['ruslanovrahmet@gmail.com']
+					recipients = ['dovurovjamshid95@gmail.com']
 
 					send_mail(subject, thoughts, sender, recipients, fail_silently=False)
 
@@ -328,17 +320,14 @@ def search_query(request, *args, **kwargs):
 	query = ''
 	images_url = {}
 
-	# data = json.loads(request.body)
-	# query = data['query']
 	query = request.GET.get('query')
 	print(query)
 
 	object_list = None
 	if (len(query) > 0) and (query != "" or query != " "):
 		print("length: ", len(query))
-		object_list = Lesson.objects.filter(
-			Q(name__icontains=query) | Q(slug__icontains=query) | Q(short_info__icontains=query) | Q(
-				description__icontains=query)
+		object_list = Subject.objects.filter(
+			Q(name__icontains=query) | Q(slug__icontains=query) | Q(short_info__icontains=query)
 		)
 	if object_list.count() > 0:
 		for obj in object_list:
@@ -347,7 +336,6 @@ def search_query(request, *args, **kwargs):
 		print(images_url)
 		try:
 			object_list_json = serializers.serialize('json', object_list, cls=LazyEncoder, ensure_ascii=True)
-		# images_url_json =  json.dumps([images_url,])#serializers.serialize('json', [images_url, ])
 		except Exception as e:
 			print("Error occured: ", e)
 		return JsonResponse({"instance": object_list_json, "images_url": images_url}, safe=False, status=200)

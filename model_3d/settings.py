@@ -25,7 +25,7 @@ SECRET_KEY = 'g%ej^l%6^4t04#+_v+c-308!fb^u@b6r)bg)ganwt9y)@hs9jn'
 DEBUG = True
 ALLOWED_HOSTS = ["*", 'www.3d-models.uz', '65.21.54.51', '3d-models.uz']
 
-# TinyMCE Configurations
+# Custom "TinyMCE Configurations" for django-tinymce4-lite==1.7.5 version
 TINYMCE_DEFAULT_CONFIG = {
     'height': 360,
     'width': 1120,
@@ -54,6 +54,7 @@ TINYMCE_DEFAULT_CONFIG = {
     'menubar': True,
     'statusbar': True,
 }
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -229,12 +230,20 @@ ACCOUNT_USERNAME_BLACKLIST = ['administrator', 'help',
                               'areariservata', 'blog'
                                                '@', 'master']
 
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST_USER = "testingemail286@gmail.com"
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_PASSWORD = 'companyinstant2020'
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST_USER = "testingemail286@gmail.com"
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_PASSWORD = 'companyinstant2020'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'dovurovjamshid95@gmail.com'
+EMAIL_HOST_PASSWORD = 'xqoesusgvupfbrhq'
+
 
 CELERY_BROKER_URL = 'redis://localhost:6379'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379'

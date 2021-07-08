@@ -89,6 +89,8 @@
 							<div class="freeproducts__card--current">
 								{% if object.free %}
 									<img src="{% static 'img/icons/free.png' %}" alt="current img">
+								{% elif object.discount %}
+									<img src="{% static 'img/icons/discount.png' %}" alt="current img">
 								{% else %}
 									<img src="{% static 'img/icons/premium.png' %}" alt="current img">
 								{% endif %}

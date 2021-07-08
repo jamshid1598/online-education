@@ -880,7 +880,7 @@ img {
   transition: all 0.3s;
 }
 .contact__title {
-  font-size: 24px;
+  font-size: 20px;
   color: #000;
   font-weight: bold;
   line-height: 115.9%;
@@ -888,6 +888,7 @@ img {
 }
 .contact__desc {
   color: #0688FF;
+  font-size: 16px;
 }
 .contact__section {
   max-width: 50%;

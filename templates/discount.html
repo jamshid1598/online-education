@@ -49,7 +49,6 @@
 						
 						<div class="freeproducts__card--title">
 							<!-- <img src="{% static 'img/icons/prosent.svg' %}" alt="% prosent icon" class="sale__card--img"> -->
-							<p class="sale__card--img" style="color: black;">{{ object.discount_per }} %</p>
 							{{ object.name|truncatechars:30 }}
 						</div>
 						<div class="freeproducts__card--image">
@@ -59,7 +58,7 @@
 							<div class="freeproducts__card--current">
 								<img src="{% static 'img/icons/discount.png' %}" alt="current img">
 							</div>
-							<a href="{% url 'Core:model-detail-view' object.slug %}" style="color: white;">
+							<a href="{% url 'Core:lesson-view' object.slug %}" style="color: white;">
 							<div class="freeproducts__card--info">
 								{% trans "view more" %}
 							</div></a>
